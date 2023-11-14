@@ -14,6 +14,10 @@ class Bullet(Sprite):
         self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
         self.rect.midtop = ai_game.ship.rect.midtop
 
+        # Plays lazer when shooting lazer
+        lazer = pygame.mixer.Sound('music/Lazer.wav')
+        lazer.play()
+
         # Store the bullet's position as a float
         self.y = float(self.rect.y)
 

@@ -1,3 +1,5 @@
+import pygame
+
 class Settings:
     """A class to store all settings for Alien Invasion."""
 
@@ -12,9 +14,16 @@ class Settings:
         self.ship_speed = 3.5
 
         # bullet settings
-        self.bullet_speed = 5.5
+        self.bullet_speed = 4.5
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (252, 2, 159)
         self.bullets_allowed = 5
+
+        # Music/Sounds
+        pygame.mixer.init()
+
+        # Plays background music
+        music = pygame.mixer.music.load('music/battleThemeA.mp3')
+        pygame.mixer.music.play(-1)
 
