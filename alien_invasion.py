@@ -34,8 +34,10 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_aliens()
             self._update_screen()
             self.clock.tick(60)
+
 
     def _check_events(self):
         # Respond to keypresses and mouse events
@@ -85,6 +87,26 @@ class AlienInvasion:
                 self.bullets.remove(bullet)
             len(self.bullets)
 
+    def _check_bullet_alien_collisions(self):
+        """Respond to bullet-alien collisions"""
+        # Check for any bullets that have hit aliens
+        # If so, get rid of the bullet and the alien
+        collisions = pygame.sprite.groupcollide(self. bullets, self.aliens, True, True)
+
+        if not self.aliens:
+            # Destroy exisiting bullets and create new fleet
+            self.bullets.empty()
+            self._create_fleet()
+        
+
+    def _update_aliens(self):
+        """Check if the fleet is at an edge, then up date positions"""
+        self._check_fleet_edges()
+        self.aliens.update()
+
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            print("Ship Hit")
+
     def _create_fleet(self):
         """Create the fleet of aliens"""
         # Create an alien and keep adding aliens until there's no room left
@@ -108,8 +130,21 @@ class AlienInvasion:
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
 
+    def _check_fleet_edges(self):
+        """Respond appropriately if any aliens have reached an edge"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        """Drop the entire fleet and change the fleet's direction"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
+
     def _update_screen(self):
-        # Redraw the scree during during ach pass though the loop
+        # Redraw the screen during during ach pass though the loop
         self.screen.fill(self.settings.bg_color)
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()

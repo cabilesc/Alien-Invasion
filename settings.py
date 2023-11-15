@@ -12,6 +12,7 @@ class Settings:
 
         # Ship Settings
         self.ship_speed = 3.5
+        self.ship_limit = 3
 
         # bullet settings
         self.bullet_speed = 4.5
@@ -20,6 +21,12 @@ class Settings:
         self.bullet_color = (252, 2, 159)
         self.bullets_allowed = 5
 
+        # Alien settings
+        self.alien_speed = 1.0
+        self.fleet_drop_speed = 10
+        # fleet_direction of 1 represents right: -1 represent = left
+        self.fleet_direction = 1
+
         # Music/Sounds
         pygame.mixer.init()
 
@@ -27,3 +34,7 @@ class Settings:
         music = pygame.mixer.music.load('music/battleThemeA.mp3')
         pygame.mixer.music.play(-1)
 
+
+        
+        
+      
