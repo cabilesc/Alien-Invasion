@@ -38,6 +38,7 @@ class AlienInvasion:
             self._update_screen()
             self.clock.tick(60)
 
+
     def _check_events(self):
         # Respond to keypresses and mouse events
         for event in pygame.event.get():
@@ -128,7 +129,7 @@ class AlienInvasion:
         self.settings.fleet_direction *= -1
 
     def _update_screen(self):
-        # Redraw the scree during during ach pass though the loop
+        # Redraw the screen during during ach pass though the loop
         self.screen.fill(self.settings.bg_color)
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
